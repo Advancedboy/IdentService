@@ -1,0 +1,35 @@
+//package ru.hostels.Ident.config;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.web.SecurityFilterChain;
+//
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests((requests) -> requests
+//                        .requestMatchers("/", "api/users", "/home", "/public/**").permitAll() // Разрешаем доступ без авторизации
+//                        .anyRequest().authenticated() // Все остальные запросы требуют авторизации
+//                )
+//                .formLogin((form) -> form
+//                        .loginPage("/login") // Указываем страницу входа
+//                        .permitAll()
+//                )
+//                .logout((logout) -> logout.permitAll()); // Разрешаем выход
+//
+//        return http.build();
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(); // Используем BCrypt для хэширования паролей
+//    }
+//}

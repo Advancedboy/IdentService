@@ -1,4 +1,4 @@
-package ru.hostels.Ident;
+package com.hostels;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class IdentApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IdentApplication.class, args);
 	}
-
 }

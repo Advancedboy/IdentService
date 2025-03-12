@@ -1,13 +1,26 @@
-package ru.hostels.Ident.model;
+package com.hostels.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "reviews")
 public class Review {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id", nullable=false)
     private Hotel hotel;
+
     private double rating;
     private String comment;
 
-    public Review(int id, User user, Hotel hotel, double rating, String comment) {
+    public Review(Long id, User user, Hotel hotel, double rating, String comment) {
         this.id = id;
         this.user = user;
         this.hotel = hotel;
@@ -15,12 +28,14 @@ public class Review {
         this.comment = comment;
     }
 
+    public Review(){}
+
     // Getters and setters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,4 +1,4 @@
-package ru.hostels.Ident;
+package com.hostels;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
