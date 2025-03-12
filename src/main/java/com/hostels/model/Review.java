@@ -1,34 +1,41 @@
 package com.hostels.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 
 @Entity
-@Table(name = "reviews")
+@Table(name  =  "reviews")
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy  =  GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name  =  "user_id", nullable  =  false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "hotel_id", nullable=false)
+    @JoinColumn(name  =  "hotel_id", nullable = false)
     private Hotel hotel;
 
     private double rating;
     private String comment;
 
     public Review(Long id, User user, Hotel hotel, double rating, String comment) {
-        this.id = id;
-        this.user = user;
-        this.hotel = hotel;
-        this.rating = rating;
-        this.comment = comment;
+        this.id  =  id;
+        this.user  =  user;
+        this.hotel  =  hotel;
+        this.rating  =  rating;
+        this.comment  =  comment;
     }
 
-    public Review(){}
+    public Review() {}
 
     // Getters and setters
     public Long getId() {
@@ -36,7 +43,7 @@ public class Review {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id  =  id;
     }
 
     public User getUser() {
@@ -44,7 +51,7 @@ public class Review {
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.user  =  user;
     }
 
     public Hotel getHotel() {
@@ -52,7 +59,7 @@ public class Review {
     }
 
     public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+        this.hotel  =  hotel;
     }
 
     public double getRating() {
@@ -60,7 +67,7 @@ public class Review {
     }
 
     public void setRating(double rating) {
-        this.rating = rating;
+        this.rating  =  rating;
     }
 
     public String getComment() {
@@ -68,6 +75,6 @@ public class Review {
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.comment  =  comment;
     }
 }

@@ -15,17 +15,22 @@ public class BookingService {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    public BookingService(BookingRepository bookingRepository, RoomRepository roomRepository, UserRepository userRepository) {
+    public BookingService(BookingRepository bookingRepository,
+                          RoomRepository roomRepository,
+                          UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
     }
 
-    public Booking createBooking(Long clientId, Long roomId, LocalDate checkIn, LocalDate checkOut){
+    public Booking createBooking(Long clientId,
+                                 Long roomId,
+                                 LocalDate checkIn,
+                                 LocalDate checkOut) {
         User client = userRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client not found"));
 
-        if (client.getRole() != Role.CLIENT){
+        if (client.getRole() != Role.CLIENT) {
             throw new RuntimeException("User is not a client");
         }
 

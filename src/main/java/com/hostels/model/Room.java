@@ -1,33 +1,42 @@
 package com.hostels.model;
 
-import jakarta.persistence.*;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.util.ArrayList;
+import java.util.List;
+import org.springframework.data.annotation.Id;
 
 @Entity
-@Table(name="rooms")
+@Table(name = "rooms")
 public class Room {
+    @jakarta.persistence.Id
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy  =  GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name="hotel_id", nullable=false)
+    @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
     // TODO create room_type enum
     private String type;
     private double price;
     private boolean availability;
 
-    @ManyToMany(mappedBy = "bookedRooms")
-    private List<User> users = new ArrayList<>();
+    @ManyToMany(mappedBy  =  "bookedRooms")
+    private final List<User> users =  new ArrayList<>();
 
     public Room(Long id, Hotel hotel, String type, double price, boolean availability) {
-        this.id = id;
-        this.hotel = hotel;
-        this.type = type;
-        this.price = price;
-        this.availability = availability;
+        this.id  =  id;
+        this.hotel  =  hotel;
+        this.type  =  type;
+        this.price  =  price;
+        this.availability  =  availability;
     }
+
     public Room() {}
 
     void addRoom(){}
@@ -42,7 +51,7 @@ public class Room {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id  =  id;
     }
 
     public Hotel getHotel() {
@@ -50,7 +59,7 @@ public class Room {
     }
 
     public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
+        this.hotel  =  hotel;
     }
 
     public String getType() {
@@ -58,7 +67,7 @@ public class Room {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type  =  type;
     }
 
     public double getPrice() {
@@ -66,7 +75,7 @@ public class Room {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price  =  price;
     }
 
     public boolean isAvailability() {
@@ -74,6 +83,6 @@ public class Room {
     }
 
     public void setAvailability(boolean availability) {
-        this.availability = availability;
+        this.availability  =  availability;
     }
 }

@@ -1,12 +1,11 @@
 package com.hostels.service;
 
 import com.hostels.enums.PaymentMethod;
-import com.hostels.model.Payment;
-import org.springframework.stereotype.Service;
 import com.hostels.enums.PaymentStatus;
 import com.hostels.model.Booking;
 import com.hostels.repository.BookingRepository;
 import com.hostels.repository.PaymentRepository;
+import org.springframework.stereotype.Service;
 
 
 @Service
@@ -15,7 +14,8 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final BookingRepository bookingRepository;
 
-    public PaymentService(PaymentRepository paymentRepository, BookingRepository bookingRepository) {
+    public PaymentService(PaymentRepository paymentRepository,
+                          BookingRepository bookingRepository) {
         this.paymentRepository = paymentRepository;
         this.bookingRepository = bookingRepository;
     }

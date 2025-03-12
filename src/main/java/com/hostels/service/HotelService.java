@@ -1,12 +1,11 @@
 package com.hostels.service;
 
-import org.springframework.stereotype.Service;
 import com.hostels.model.Hotel;
 import com.hostels.model.User;
-import java.util.List;
-
 import com.hostels.repository.HotelRepository;
 import com.hostels.repository.UserRepository;
+import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HotelService {

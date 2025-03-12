@@ -36,7 +36,13 @@ public class Hotel {
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms = new ArrayList<>();
 
-    public Hotel(Long id, String name, String address, String description, double capacity, String amenities, User owner) {
+    public Hotel(Long id,
+                 String name,
+                 String address,
+                 String description,
+                 double capacity,
+                 String amenities,
+                 User owner) {
         // TODO checking input parameters
         this.id = id;
         this.name = name;
