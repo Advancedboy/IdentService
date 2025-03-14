@@ -43,7 +43,6 @@ public class Hotel {
                  double capacity,
                  String amenities,
                  User owner) {
-        // TODO checking input parameters
         this.id = id;
         this.name = name;
         this.address = address;

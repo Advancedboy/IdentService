@@ -33,7 +33,7 @@ build/
 .vscode/
 
 /src/main/java/com/hostels/config/SecurityConfig.java
-
+/src/main/resources/application.properties
 
 ### etc ###
 project.md

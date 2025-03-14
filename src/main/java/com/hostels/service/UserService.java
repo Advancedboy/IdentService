@@ -1,9 +1,7 @@
 package com.hostels.service;
 
-import com.hostels.enums.Role;
 import com.hostels.model.User;
 import com.hostels.repository.UserRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;

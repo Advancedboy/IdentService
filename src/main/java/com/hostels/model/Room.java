@@ -21,7 +21,6 @@ public class Room {
     @ManyToOne
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
-    // TODO create room_type enum
     private String type;
     private double price;
     private boolean availability;
