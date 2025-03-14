@@ -39,12 +39,6 @@ public class Room {
 
     public Room() {}
 
-    void addRoom(){}
-
-    void updateRoom(){}
-
-    void checkAvailability(){}
-
     // Getters and setters
     public Long getId() {
         return id;
