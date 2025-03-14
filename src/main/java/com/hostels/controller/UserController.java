@@ -3,6 +3,7 @@ package com.hostels.controller;
 import com.hostels.model.User;
 import com.hostels.service.UserService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,14 +19,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "item")
+    @GetMapping(path = "data")
     public List<User> findAll() {
-        // return userService.findAll();
-        return List.of(
-                new User(1, "Pawel", "haidukevich@gmail.com", "password", Role.OWNER),
-                new User(2, "Andrew", "drew@gmail.com", "dawdawdaw", Role.CLIENT),
-                new User(3, "Alexey", "kevichlexa@gmail.com", "lesha228", Role.OWNER)
-        );
+        return userService.findAll();
+    }
+
+    @GetMapping(path = "data/{id}")
+    public Optional<User> findById(long id) {
+        return userService.findById(id);
     }
 
     @PostMapping

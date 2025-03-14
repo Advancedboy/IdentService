@@ -3,6 +3,7 @@ package com.hostels.service;
 import com.hostels.enums.PaymentMethod;
 import com.hostels.enums.PaymentStatus;
 import com.hostels.model.Booking;
+import com.hostels.model.Payment;
 import com.hostels.repository.BookingRepository;
 import com.hostels.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
