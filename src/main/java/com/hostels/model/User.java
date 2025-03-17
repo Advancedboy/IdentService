@@ -2,6 +2,8 @@ package com.hostels.model;
 
 import com.hostels.enums.Role;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,8 +23,8 @@ public class User {
     private String name;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
-
     @ManyToMany
     @JoinTable(
             name = "bookings",

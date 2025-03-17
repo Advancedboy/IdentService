@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/users")
+@RequestMapping(path = "/api/users")
 public class UserController {
     private final UserService userService;
 
@@ -20,9 +20,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "data")
+    @GetMapping(path = "/data")
     public List<User> findAll() {
         return userService.findAll();
+    }
+
+    @GetMapping("/{email}")
+    public Optional<User> getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
     }
 
     @GetMapping(path = "data/{id}")
@@ -30,8 +35,10 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping(path = "/create")
     public User create(@RequestBody User user) {
         return userService.create(user);
     }
+
+
 }

@@ -1,14 +1,7 @@
 package com.hostels.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 
@@ -34,6 +27,7 @@ public class Booking {
     private boolean status;
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Enumerated(EnumType.STRING)
     private Payment payment;
 
     public Booking(Long id,

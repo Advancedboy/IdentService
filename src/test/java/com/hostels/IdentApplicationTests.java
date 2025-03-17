@@ -10,5 +10,4 @@ class IdentApplicationTests {
 	void contextLoads() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-
 }

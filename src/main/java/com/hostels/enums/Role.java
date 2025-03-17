@@ -1,5 +1,5 @@
 package com.hostels.enums;
 
 public enum Role {
-    CLIENT, OWNER
+    CLIENT, OWNER, ADMIN
 }
