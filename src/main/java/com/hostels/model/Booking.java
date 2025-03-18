@@ -1,7 +1,16 @@
 package com.hostels.model;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 
@@ -56,7 +65,9 @@ public class Booking {
         this.id = id;
     }
 
-    public Long getUserId(){ return user.getId(); }
+    public Long getUserId() {
+        return user.getId();
+    }
 
     public User getUser() {
         return user;
@@ -70,7 +81,9 @@ public class Booking {
         return room;
     }
 
-    public Long getRoomId() {return room.getId(); }
+    public Long getRoomId() {
+        return room.getId();
+    }
 
     public void setRoom(Room room) {
         this.room = room;

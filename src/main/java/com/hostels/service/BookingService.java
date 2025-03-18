@@ -10,11 +10,11 @@ import com.hostels.repository.BookingRepository;
 import com.hostels.repository.RoomRepository;
 import com.hostels.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class BookingService {
@@ -22,7 +22,10 @@ public class BookingService {
     private final RoomRepository roomRepository;
     private final UserRepository userRepository;
 
-    public boolean isRoomAvailable(Long roomId, LocalDate checkIn, LocalDate checkOut, Long bookingId) {
+    public boolean isRoomAvailable(Long roomId,
+                                   LocalDate checkIn,
+                                   LocalDate checkOut,
+                                   Long bookingId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new NotFoundException("Room not found"));
         return !bookingRepository.existsByRoomAndCheckInDateBeforeAndCheckOutDateAfterAndIdNot(

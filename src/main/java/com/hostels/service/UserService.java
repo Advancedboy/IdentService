@@ -2,12 +2,9 @@ package com.hostels.service;
 
 import com.hostels.model.User;
 import com.hostels.repository.UserRepository;
-
-import java.time.Period;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -66,11 +63,11 @@ public class UserService {
         }
 
 
-        if(name != null && !name.equals(user.getName())) {
+        if (name != null && !name.equals(user.getName())) {
             user.setName(name);
         }
 
-        if(password != null && !encoder.matches(password, user.getPassword())) {
+        if (password != null && !encoder.matches(password, user.getPassword())) {
             user.setPassword(encoder.encode(password));
         }
     }

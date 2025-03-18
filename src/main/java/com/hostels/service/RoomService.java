@@ -3,16 +3,14 @@ package com.hostels.service;
 import com.hostels.model.Room;
 import com.hostels.repository.RoomRepository;
 import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RoomService {
-
-    @Autowired
     private RoomRepository roomRepository;
 
     public void delete(Long id) {
@@ -29,7 +27,7 @@ public class RoomService {
 
     public Room create(Room room) {
         Optional<Room> optionalRoom = roomRepository.findById(room.getId());
-        if(optionalRoom.isPresent()) {
+        if (optionalRoom.isPresent()) {
             throw new IllegalStateException("Room with id " + room.getId() + " already exists");
         }
         return roomRepository.save(room);
@@ -39,16 +37,16 @@ public class RoomService {
     public void update(Long id, Room room) {
         Optional<Room> optionalRoom = roomRepository.findById(id);
         if (optionalRoom.isEmpty()) {
-           throw new IllegalStateException("Room with id " + room.getId() + " not found");
+            throw new IllegalStateException("Room with id " + room.getId() + " not found");
         }
 
-        Room room_ = optionalRoom.get();
-        if (room_.isAvailability() != room.isAvailability()) {
-            room_.setAvailability(room.isAvailability());
+        Room roomDb = optionalRoom.get();
+        if (roomDb.isAvailability() != room.isAvailability()) {
+            roomDb.setAvailability(room.isAvailability());
         }
 
-        if(room_.getPrice() != room.getPrice()) {
-            room_.setPrice(room.getPrice());
+        if (roomDb.getPrice() != room.getPrice()) {
+            roomDb.setPrice(room.getPrice());
         }
     }
 }
