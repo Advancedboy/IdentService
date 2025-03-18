@@ -2,7 +2,6 @@ package com.hostels.controller;
 
 import com.hostels.model.Room;
 import com.hostels.service.RoomService;
-import com.hostels.service.UserService;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
