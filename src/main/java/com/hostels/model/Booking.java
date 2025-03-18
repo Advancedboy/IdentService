@@ -56,6 +56,8 @@ public class Booking {
         this.id = id;
     }
 
+    public Long getUserId(){ return user.getId(); }
+
     public User getUser() {
         return user;
     }
@@ -67,6 +69,8 @@ public class Booking {
     public Room getRoom() {
         return room;
     }
+
+    public Long getRoomId() {return room.getId(); }
 
     public void setRoom(Room room) {
         this.room = room;

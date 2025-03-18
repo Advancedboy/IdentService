@@ -4,12 +4,8 @@ import com.hostels.model.User;
 import com.hostels.service.UserService;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/users")
@@ -20,17 +16,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "/data")
+    @GetMapping(path = "/data/all")
     public List<User> findAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/data/email/{email}")
     public Optional<User> getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
 
-    @GetMapping(path = "data/{id}")
+    @GetMapping(path = "/data/{id}")
     public Optional<User> findById(@PathVariable Long id) {
         return userService.findById(id);
     }
@@ -40,5 +36,13 @@ public class UserController {
         return userService.create(user);
     }
 
+    @PutMapping(path = "/modify/{id}")
+    public void update(@PathVariable Long id, @RequestBody User user) {
+        userService.update(id, user.getName(), user.getEmail(), user.getPassword());
+    }
 
+    @DeleteMapping(path = "/delete/{id}")
+    public void delete(@PathVariable(name="id") Long id) {
+        userService.delete(id);
+    }
 }
