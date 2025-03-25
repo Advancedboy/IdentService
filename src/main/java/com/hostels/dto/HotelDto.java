@@ -41,6 +41,6 @@ public class HotelDto {
     public static List<HotelDto> fromEntityList(List<Hotel> hotels) {
         return hotels.stream()
                 .map(HotelDto::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

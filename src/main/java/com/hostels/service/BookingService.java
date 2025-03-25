@@ -46,7 +46,7 @@ public class BookingService {
     public List<BookingDto> findAll() {
         return bookingRepository.findAll().stream()
                 .map(BookingDto::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     // Получение бронирования по ID
