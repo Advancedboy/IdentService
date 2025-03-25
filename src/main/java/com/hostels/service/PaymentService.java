@@ -1,5 +1,7 @@
 package com.hostels.service;
 
+import com.hostels.dto.PaymentCreateDto;
+import com.hostels.dto.PaymentDto;
 import com.hostels.enums.PaymentMethod;
 import com.hostels.enums.PaymentStatus;
 import com.hostels.model.Booking;
@@ -21,16 +23,19 @@ public class PaymentService {
         this.bookingRepository = bookingRepository;
     }
 
-    public Payment processPayment(Long bookingId, double amount, PaymentMethod method) {
-        Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
+    public PaymentDto createPayment(PaymentCreateDto paymentCreateDto) {
+        // Преобразуем DTO в сущность
+        Payment payment = paymentCreateDto.toEntity();
 
-        Payment payment = new Payment();
+        // Получаем объект Booking по ID
+        Booking booking = bookingRepository.findById(paymentCreateDto.getBookingId())
+                .orElseThrow(() -> new IllegalStateException("Booking not found"));
         payment.setBooking(booking);
-        payment.setAmount(amount);
-        payment.setPaymentMethod(method);
-        payment.setStatus(PaymentStatus.COMPLETED);
 
-        return paymentRepository.save(payment);
+        // Сохраняем платеж
+        Payment savedPayment = paymentRepository.save(payment);
+
+        // Возвращаем DTO с полными данными
+        return PaymentDto.fromEntity(savedPayment);
     }
 }

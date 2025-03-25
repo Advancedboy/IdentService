@@ -9,9 +9,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "rooms")
 public class Room {
     @jakarta.persistence.Id
@@ -28,54 +34,9 @@ public class Room {
     @ManyToMany(mappedBy  =  "bookedRooms")
     private final List<User> users =  new ArrayList<>();
 
-    public Room(Long id, Hotel hotel, String type, double price, boolean availability) {
-        this.id  =  id;
-        this.hotel  =  hotel;
-        this.type  =  type;
-        this.price  =  price;
-        this.availability  =  availability;
+    public Room(Long id) {
+        this.id = id;
     }
 
-    public Room() {}
 
-    // Getters and setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id  =  id;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel  =  hotel;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type  =  type;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price  =  price;
-    }
-
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability  =  availability;
-    }
 }

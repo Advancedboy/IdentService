@@ -8,11 +8,10 @@ import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -31,8 +30,7 @@ public class UserService {
     }
 
     public User create(User user) {
-        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
-        if (optionalUser.isPresent()) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalStateException("User already exists");
         }
         user.setPassword(encoder.encode(user.getPassword()));
@@ -40,8 +38,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isEmpty()) {
+        if (!userRepository.existsById(id)) {
             throw new IllegalStateException("User not found");
         }
         userRepository.deleteById(id);
@@ -49,11 +46,8 @@ public class UserService {
 
     @Transactional
     public void update(Long id, String name, String email, String password) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isEmpty()) {
-            throw new IllegalStateException("User with id " + id + "not found");
-        }
-        User user = optionalUser.get();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("User with id " + id + " not found"));
 
         if (email != null && !email.isBlank() && !email.equals(user.getEmail())) {
             if (userRepository.findByEmail(email).isPresent()) {
@@ -62,12 +56,13 @@ public class UserService {
             user.setEmail(email);
         }
 
-
         if (name != null && !name.equals(user.getName())) {
             user.setName(name);
         }
 
-        if (password != null && !encoder.matches(password, user.getPassword())) {
+        if (password != null
+                && !password.isBlank()
+                && !encoder.matches(password, user.getPassword())) {
             user.setPassword(encoder.encode(password));
         }
     }

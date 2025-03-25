@@ -7,9 +7,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name  =  "reviews")
 public class Review {
     @Id
@@ -26,55 +34,4 @@ public class Review {
 
     private double rating;
     private String comment;
-
-    public Review(Long id, User user, Hotel hotel, double rating, String comment) {
-        this.id  =  id;
-        this.user  =  user;
-        this.hotel  =  hotel;
-        this.rating  =  rating;
-        this.comment  =  comment;
-    }
-
-    public Review() {}
-
-    // Getters and setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id  =  id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user  =  user;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel  =  hotel;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating  =  rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment  =  comment;
-    }
 }

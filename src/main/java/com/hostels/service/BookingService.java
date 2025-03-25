@@ -1,102 +1,63 @@
 package com.hostels.service;
 
-import com.hostels.enums.Role;
-import com.hostels.exception.NotFoundException;
-import com.hostels.exception.UnauthorizedActionException;
+import com.hostels.dto.BookingCreateDto;
+import com.hostels.dto.BookingDto;
 import com.hostels.model.Booking;
 import com.hostels.model.Room;
 import com.hostels.model.User;
 import com.hostels.repository.BookingRepository;
 import com.hostels.repository.RoomRepository;
 import com.hostels.repository.UserRepository;
-import jakarta.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class BookingService {
     private final BookingRepository bookingRepository;
-    private final RoomRepository roomRepository;
     private final UserRepository userRepository;
-
-    public boolean isRoomAvailable(Long roomId,
-                                   LocalDate checkIn,
-                                   LocalDate checkOut,
-                                   Long bookingId) {
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new NotFoundException("Room not found"));
-        return !bookingRepository.existsByRoomAndCheckInDateBeforeAndCheckOutDateAfterAndIdNot(
-                room, checkOut, checkIn, bookingId
-        );
-    }
+    private final RoomRepository roomRepository;
 
     public BookingService(BookingRepository bookingRepository,
-                          RoomRepository roomRepository,
-                          UserRepository userRepository) {
+                          UserRepository userRepository,
+                          RoomRepository roomRepository) {
         this.bookingRepository = bookingRepository;
-        this.roomRepository = roomRepository;
         this.userRepository = userRepository;
+        this.roomRepository = roomRepository;
     }
 
-    public Booking createBooking(Long clientId,
-                                 Long roomId,
-                                 LocalDate checkIn,
-                                 LocalDate checkOut,
-                                 double totalPrice) {
-        User client = userRepository.findById(clientId)
-                .orElseThrow(() -> new NotFoundException("Client not found"));
+    // Создание нового бронирования
+    public BookingDto create(BookingCreateDto bookingDto) {
+        User user = userRepository.findById(bookingDto.getUserId())
+                .orElseThrow(() -> new IllegalStateException("User not found"));
+        Room room = roomRepository.findById(bookingDto.getRoomId())
+                .orElseThrow(() -> new IllegalStateException("Room not found"));
 
-        if (client.getRole() != Role.CLIENT) {
-            throw new UnauthorizedActionException("User is not a client");
-        }
-
-        Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new NotFoundException("Room not found"));
-
-        Booking booking = new Booking();
-        booking.setUser(client);
+        Booking booking = bookingDto.toEntity();
+        booking.setUser(user);
         booking.setRoom(room);
-        booking.setCheckInDate(checkIn);
-        booking.setCheckOutDate(checkOut);
-        booking.setTotalPrice(totalPrice);
+        bookingRepository.save(booking);
 
-        return bookingRepository.save(booking);
+        return BookingDto.fromEntity(booking);
     }
 
-    public List<Booking> findAll() {
-        return bookingRepository.findAll();
+    // Получение всех бронирований
+    public List<BookingDto> findAll() {
+        return bookingRepository.findAll().stream()
+                .map(BookingDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Booking> findById(Long id) {
-        return bookingRepository.findById(id);
+    // Получение бронирования по ID
+    public Optional<BookingDto> findById(Long id) {
+        return bookingRepository.findById(id)
+                .map(BookingDto::fromEntity);
     }
 
-    @Transactional
-    public void update(Long id, LocalDate checkInDate, LocalDate checkOutDate) {
-        Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Booking not found"));
-
-        if (checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
-            throw new IllegalArgumentException("Check-out date must be after check-in date");
-        }
-
-        boolean isRoomAvailable = isRoomAvailable(
-                booking.getRoom().getId(), checkOutDate, checkInDate, id);
-
-        if (isRoomAvailable) {
-            throw new IllegalStateException("Room is already booked for these dates");
-        }
-
-        booking.setCheckInDate(checkInDate);
-        booking.setCheckOutDate(checkOutDate);
-    }
-
+    // Удаление бронирования
     public void delete(Long id) {
-        Optional<Booking> optionalBooking = bookingRepository.findById(id);
-        if (optionalBooking.isEmpty()) {
+        if (!bookingRepository.existsById(id)) {
             throw new IllegalStateException("Booking not found");
         }
         bookingRepository.deleteById(id);
