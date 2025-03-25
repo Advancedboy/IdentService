@@ -33,7 +33,7 @@ public class UserController {
     public List<UserDto> findAll() {
         return userService.findAll().stream()
                 .map(UserDto::fromEntity) // Конвертация в DTO
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping

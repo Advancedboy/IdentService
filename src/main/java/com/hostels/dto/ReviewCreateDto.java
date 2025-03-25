@@ -22,7 +22,6 @@ public class ReviewCreateDto {
         Review review = new Review();
         review.setRating(this.rating);
         review.setComment(this.comment);
-        // userId и hotelId будут установлены в сервисе при получении соответствующих сущностей
         return review;
     }
 }

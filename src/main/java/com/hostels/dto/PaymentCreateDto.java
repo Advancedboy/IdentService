@@ -23,8 +23,6 @@ public class PaymentCreateDto {
         payment.setAmount(this.amount);
         payment.setPaymentMethod(this.paymentMethod);
         payment.setStatus(this.status);
-        // Дата будет установлена в сущности автоматически
-        // payment.setPaymentDate(LocalDateTime.now());
         return payment;
     }
 }
